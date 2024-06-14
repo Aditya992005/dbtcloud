@@ -1,0 +1,43 @@
+name: my_dbt_project
+version: "1.0.0"
+config-version: 2
+
+# This section configures which profile dbt should use for this project.
+profile: my_profile
+
+# Configuring models
+models:
+  my_dbt_project:
+    # Applies to all files under models/
+    +materialized: view
+
+    staging:
+      # Applies to all files under models/staging/
+      +materialized: table
+
+    marts:
+      # Applies to all files under models/marts/
+      +materialized: incremental
+
+# Configuring seeds
+seeds:
+  my_dbt_project:
+    +quote_columns: true
+
+# Configuring snapshots
+snapshots:
+  my_dbt_project:
+    +strategy: timestamp
+    +updated_at: updated_at
+
+# Configuring tests
+tests:
+  my_dbt_project:
+    +severity: error
+
+# Configuration for specific models
+models:
+  my_dbt_project:
+    # Settings for all models in this project
+    example_model:
+      +materialized: table  # This overrides the general setting for this specific model

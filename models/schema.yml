@@ -1,0 +1,40 @@
+version: 2
+
+sources:
+  - name: ANALYTICS # The name of your Snowflake database
+    schema: PUBLIC # The schema within the database
+    tables:
+      - name: ABC # The raw table name in Snowflake
+        description: "This is the source table in Snowflake."
+        columns:
+          - name: ID
+            description: "Description of column1"
+          - name: NAME
+            description: "Description of column2"
+
+models:
+  - name: source_table
+    description: "This model reads from the source table"
+    columns:
+      - name: ID
+        description: "Description of column1"
+      - name: NAME
+        description: "Description of column2"
+    tests:
+      - unique:
+          column_name: ID
+      - not_null:
+          column_name: NAME
+
+  - name: target_table
+    description: "This model creates the target table from the source table"
+    columns:
+      - name: ID
+        description: "Description of column1"
+      - name: NEW_NAME
+        description: "Description of column2"
+    tests:
+      - unique:
+          column_name: ID
+      - not_null:
+          column_name: NEW_NAME
